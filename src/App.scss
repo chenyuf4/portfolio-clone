@@ -1,0 +1,112 @@
+@font-face {
+  font-family: "JW-font";
+  src: url("./assets/font/jw.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "T-font";
+  src: url("./assets/font/t.woff2") format("woff2");
+}
+
+html,
+body {
+  overflow: hidden;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overscroll-behavior-x: none;
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  outline: none;
+  z-index: 1;
+}
+
+.JW-font {
+  font-family: "JW-font";
+}
+
+.T-font {
+  font-family: "T-font";
+}
+
+// font
+.font-xsss {
+  font-size: 4px;
+}
+
+.font-xss {
+  font-size: 6px;
+}
+
+.font-xs {
+  font-size: 8px;
+}
+
+.font-sm {
+  font-size: 10px;
+}
+
+.font-md {
+  font-size: 12px;
+}
+
+.font-md-extra {
+  font-size: 16px;
+}
+
+.font-lg {
+  font-size: 24px;
+}
+
+.font-title {
+  font-size: 50px;
+}
+
+// line height
+.line-height-xss {
+  line-height: 0.7;
+}
+
+.line-height-xs {
+  line-height: 0.8;
+}
+
+.line-height-sm {
+  line-height: 0.9;
+}
+
+.line-height-md {
+  line-height: 1;
+}
+
+.line-height-md-extra {
+  line-height: 1.1;
+}
+
+.line-height-lg {
+  line-height: 1.2;
+}
+
+.line-height-lg-extra {
+  line-height: 1.4;
+}
+
+// text color
+
+.text-primary-color {
+  color: #bac4b8;
+}
