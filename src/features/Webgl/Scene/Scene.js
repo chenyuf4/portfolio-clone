@@ -4,7 +4,8 @@ import { useCallback, useEffect, useRef } from "react";
 import useRefMounted from "hooks/useRefMounted";
 import { POS_LERP_FACTOR } from "utils/format";
 import * as THREE from "three";
-const { damp, lerp } = THREE.MathUtils;
+import { rotationAngleFn } from "utils/utilFn";
+const { damp, lerp, clamp } = THREE.MathUtils;
 const Scene = ({ scrollPosRef, isScrolling, setIsScrolling, zPosRef }) => {
   const imageGroupRef = useRef();
   const mounted = useRefMounted();
@@ -14,6 +15,7 @@ const Scene = ({ scrollPosRef, isScrolling, setIsScrolling, zPosRef }) => {
     x: 0,
     rotate: 0,
   });
+  const boundary = 5.5 * IMAGE_BLOCK_WIDTH + 4.5 * IMAGE_GAP;
   const updatePlanes = useCallback(() => {
     const { current, target, latency } = scrollPosRef.current;
     let newCurrentPos = current + (target - current) * POS_LERP_FACTOR.SCROLL;
@@ -27,13 +29,29 @@ const Scene = ({ scrollPosRef, isScrolling, setIsScrolling, zPosRef }) => {
     scrollPosRef.current.latency += latencyDiff * POS_LERP_FACTOR.LATENCY;
     latencyValue.current.x +=
       (latencyDiff - latencyValue.current.x) * POS_LERP_FACTOR.LATENCY;
+    latencyValue.current.rotate = clamp(
+      scrollPosRef.current.latency / 50,
+      -10,
+      10
+    );
     const uStrength = Math.min(Math.abs(latencyValue.current.x) / 10, 0.5);
     // update images position
     for (let index = 0; index < imagesGroup.length; index++) {
       const imageMesh = imagesGroup[index];
       const defaultPos = index * (IMAGE_BLOCK_WIDTH + IMAGE_GAP);
       imageMesh.position.x = defaultPos + newCurrentPos;
+      const targetRotateDegree = rotationAngleFn(
+        Math.abs(imageMesh.position.x) <= boundary
+          ? 1 + imageMesh.position.x / boundary
+          : 0,
+        speed < 0 ? "L" : "R"
+      );
+      imageMesh.material.uniforms.rotateDegree.value +=
+        (targetRotateDegree - imageMesh.material.uniforms.rotateDegree.value) *
+        0.25;
       imageMesh.material.uniforms.uStrength.value = uStrength;
+      imageMesh.material.uniforms.rStrength.value = latencyValue.current.rotate;
+      imageMesh.material.uniforms.posX.value = imageMesh.position.x;
     }
     scrollPosRef.current.current = newCurrentPos;
     if (newCurrentPos === target) {
@@ -41,7 +59,7 @@ const Scene = ({ scrollPosRef, isScrolling, setIsScrolling, zPosRef }) => {
     } else {
       animationRef.current = window.requestAnimationFrame(updatePlanes);
     }
-  }, [scrollPosRef, setIsScrolling]);
+  }, [boundary, scrollPosRef, setIsScrolling]);
 
   useEffect(() => {
     if (!mounted.current) return;
