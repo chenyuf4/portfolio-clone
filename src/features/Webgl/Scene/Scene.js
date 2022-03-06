@@ -45,8 +45,7 @@ const Scene = ({ scrollPosRef, isScrolling, setIsScrolling, zPosRef }) => {
         Math.abs(imageMesh.position.x) <= boundary
           ? 1 + imageMesh.position.x / boundary
           : 0,
-        speed < 0 ? "L" : "R",
-        1
+        speed < 0 ? "L" : "R"
       );
       imageMesh.material.uniforms.rotateDegree.value = targetRotateDegree;
       imageMesh.material.uniforms.uStrength.value = uStrength;
