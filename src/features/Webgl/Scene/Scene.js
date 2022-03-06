@@ -49,11 +49,6 @@ const Scene = ({ scrollPosRef, isScrolling, setIsScrolling, zPosRef }) => {
         1
       );
       imageMesh.material.uniforms.rotateDegree.value = targetRotateDegree;
-      // lerp(
-      //   imageMesh.material.uniforms.rotateDegree.value,
-      //   targetRotateDegree,
-      //   0.08
-      // );
       imageMesh.material.uniforms.uStrength.value = uStrength;
       imageMesh.material.uniforms.rStrength.value = latencyValue.current.rotate;
       imageMesh.material.uniforms.posX.value = imageMesh.position.x;
