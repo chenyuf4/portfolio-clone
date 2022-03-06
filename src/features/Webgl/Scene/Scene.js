@@ -30,10 +30,11 @@ const Scene = ({ scrollPosRef, isScrolling, setIsScrolling, zPosRef }) => {
     latencyValue.current.x +=
       (latencyDiff - latencyValue.current.x) * POS_LERP_FACTOR.LATENCY;
     latencyValue.current.rotate = clamp(
-      scrollPosRef.current.latency / 50,
-      -10,
-      10
+      scrollPosRef.current.latency / 10,
+      -0.5,
+      0.5
     );
+
     const uStrength = Math.min(Math.abs(latencyValue.current.x) / 10, 0.5);
     // update images position
     for (let index = 0; index < imagesGroup.length; index++) {
@@ -44,11 +45,15 @@ const Scene = ({ scrollPosRef, isScrolling, setIsScrolling, zPosRef }) => {
         Math.abs(imageMesh.position.x) <= boundary
           ? 1 + imageMesh.position.x / boundary
           : 0,
-        speed < 0 ? "L" : "R"
+        speed < 0 ? "L" : "R",
+        1
       );
-      imageMesh.material.uniforms.rotateDegree.value +=
-        (targetRotateDegree - imageMesh.material.uniforms.rotateDegree.value) *
-        0.25;
+      imageMesh.material.uniforms.rotateDegree.value = targetRotateDegree;
+      // lerp(
+      //   imageMesh.material.uniforms.rotateDegree.value,
+      //   targetRotateDegree,
+      //   0.08
+      // );
       imageMesh.material.uniforms.uStrength.value = uStrength;
       imageMesh.material.uniforms.rStrength.value = latencyValue.current.rotate;
       imageMesh.material.uniforms.posX.value = imageMesh.position.x;

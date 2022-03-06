@@ -1,7 +1,10 @@
 import { IMAGE_BLOCK_WIDTH, IMAGE_GAP } from "./format";
-export const rotationAngleFn = (percentage, direction = "L") => {
+const scaleRatio = 1;
+export const rotationAngleFn = (percentage, direction = "L", uStrength = 1) => {
   if (percentage === 0) {
-    return direction === "L" ? Math.PI / 8 : -Math.PI / 8;
+    return direction === "L"
+      ? (Math.PI * uStrength) / 8
+      : (-Math.PI * uStrength) / 8;
   }
   const boundary = 5.5 * IMAGE_BLOCK_WIDTH + 4.5 * IMAGE_GAP;
   let derivative = 0;
@@ -12,13 +15,25 @@ export const rotationAngleFn = (percentage, direction = "L") => {
   } else {
     derivative = (1 - percentage) * 4;
   }
+
+  const newPercentage = 1 - Math.abs(percentage - 1);
   let angleOffset = 0;
+  const largeOffset = (Math.PI * uStrength) / 8;
+  const smallOffset = (Math.PI * uStrength) / 8;
+  // Math.PI / 20;
   if (percentage >= 1 && direction === "L") {
-    angleOffset = Math.PI / 2;
+    angleOffset = largeOffset;
+  } else if (percentage < 1 && direction === "L") {
+    angleOffset = smallOffset;
   }
 
   if (percentage <= 1 && direction === "R") {
-    angleOffset = -Math.PI / 2;
+    angleOffset = -largeOffset;
+  } else if (percentage > 1 && direction === "R") {
+    angleOffset = -smallOffset;
   }
-  return Math.atan(derivative * boundary) + angleOffset;
+  return (
+    Math.atan(derivative * uStrength * scaleRatio) +
+    angleOffset * uStrength * scaleRatio
+  );
 };

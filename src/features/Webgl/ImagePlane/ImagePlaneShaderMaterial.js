@@ -26,11 +26,11 @@ class ImagePlaneShaderMaterial extends ShaderMaterial {
         float z = 0.;
         // float posX=abs(distance(coordinate.x,0.));
         if (abs(posX) <= boundary) {
-          z = (boundary - zIndexFn(abs(posX) / boundary) * boundary) * uStrength ;
+          z = (boundary - zIndexFn(abs(posX) / boundary) * boundary) * uStrength;
         }
         mat4 translationMatrix = mat4(vec4(1., 0., 0., 0.),
         vec4(0., 1., 0., 0.),
-        vec4(0., 0., 1., 0.0),
+        vec4(0., 0., 1., 0.),
         vec4(0., 0., z, 1.));
 
         float rotateDegreeValue = rotateDegree * uStrength;
