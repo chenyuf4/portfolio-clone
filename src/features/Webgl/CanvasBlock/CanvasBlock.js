@@ -16,7 +16,7 @@ const CanvasBlock = ({
       flat={true}
       gl={{
         antialias: true,
-        alpha: true,
+        alpha: false,
         shadowMap: true,
       }}
     >

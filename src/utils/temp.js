@@ -2,6 +2,7 @@
 /* eslint-disable no-sequences */
 /* eslint-disable no-undef */
 /* eslint-disable no-redeclare */
+// this doc is for reference only, not for functionality
 (window.R = {}),
   (R.M = class {
     constructor(t) {
@@ -2424,8 +2425,20 @@ let RoId = 0;
           (this.x.curr += (this.x.targ - this.x.curr) * o.lerp.scroll[i]),
             (o.x = this.x.curr / this.max);
           let t = this.x.targ - this.x.currLatency;
-          //chenyu (this.x.currLatency += t * o.lerp.latency[i]),
-          s || (t = 0),
+          // scroll: {
+          //   out: 0.08,
+          //   in: 0.07,
+          //   w: 0.07,
+          //   a: 0.08,
+          // },
+          // latency: {
+          //   out: 0.08,
+          //   in: 0.3,
+          //   w: 0.07,
+          //   a: 0.08,
+          // },
+          (this.x.currLatency += t * o.lerp.latency[i]),
+            s || (t = 0),
             (this.latency += (t - this.latency) * o.lerp.latency[i]);
           var i = s ? 1 : 0.6,
             r = 500 / i,

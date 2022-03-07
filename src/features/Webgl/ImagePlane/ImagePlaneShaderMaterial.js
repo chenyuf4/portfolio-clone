@@ -1,5 +1,10 @@
 import { ShaderMaterial } from "three";
 import { extend } from "@react-three/fiber";
+import {
+  IMAGE_BLOCK_HEIGHT,
+  IMAGE_BLOCK_WIDTH,
+  IMAGE_DIMENSION,
+} from "utils/format";
 
 class ImagePlaneShaderMaterial extends ShaderMaterial {
   constructor() {
@@ -12,6 +17,7 @@ class ImagePlaneShaderMaterial extends ShaderMaterial {
       uniform float boundary;
       uniform float posX;
       uniform float rotateDegree;
+      varying float zOffset;
       float zIndexFn(float inputVal) {
         if (inputVal < 0.5) {
           return 2.0 * inputVal * inputVal;
@@ -22,9 +28,7 @@ class ImagePlaneShaderMaterial extends ShaderMaterial {
         return -1. + (4.0 - 2.0 * inputVal ) * inputVal;
       }
       void main() {
-        // vec4 coordinate=modelViewMatrix*vec4(position.xy,0.,1.);
         float z = 0.;
-        // float posX=abs(distance(coordinate.x,0.));
         if (abs(posX) <= boundary) {
           z = (boundary - zIndexFn(abs(posX) / boundary) * boundary) * uStrength;
         }
@@ -41,14 +45,22 @@ class ImagePlaneShaderMaterial extends ShaderMaterial {
 
         gl_Position = projectionMatrix *  modelViewMatrix * translationMatrix * rotateMatrix * vec4(position.xy, 0.0, 1.0);
         vUv = uv;
+        zOffset = min(z * 0.5, 0.7);
       }`,
       fragmentShader: `
       uniform sampler2D tex;
       varying vec2 vUv;
+      uniform vec2 planeDimension;
+      varying float zOffset;
       void main() {
+        vec4 s = vec4(0.07843, 0.07843, 0.07843, 1.);
         float x = vUv.x;
         float y = vUv.y;
-        gl_FragColor = texture2D(tex, vec2(x * 0.26 * 696./1219.0 + 0.5 - 0.13 * 696./1219.0, y));
+        vec4 imageTexture = texture2D(tex, vec2((x - 0.5) * planeDimension.x + 0.5, (y - 0.5) * planeDimension.y + 0.5));
+        float greyColor = (imageTexture.r + imageTexture.g + imageTexture.b) / 5.0;
+        vec4 res = mix(vec4(greyColor,greyColor,greyColor,1.), imageTexture, zOffset + 0.1);
+        res = mix(res, res * s, 0.);
+        gl_FragColor = res;
       }`,
       uniforms: {
         tex: { value: null },
@@ -57,6 +69,14 @@ class ImagePlaneShaderMaterial extends ShaderMaterial {
         rotateDegree: { value: 0 },
         rStrength: { value: 0 },
         posX: { value: 0 },
+        planeDimension: {
+          value: [
+            ((IMAGE_BLOCK_WIDTH / IMAGE_BLOCK_HEIGHT) *
+              IMAGE_DIMENSION.height) /
+              IMAGE_DIMENSION.width,
+            1,
+          ],
+        },
       },
     });
   }
@@ -103,8 +123,17 @@ class ImagePlaneShaderMaterial extends ShaderMaterial {
   get posX() {
     return this.uniforms.posX.value;
   }
+
   set posX(value) {
     this.uniforms.posX.value = value;
+  }
+
+  get planeDimension() {
+    return this.uniforms.planeDimension.value;
+  }
+
+  set planeDimension(value) {
+    this.uniforms.planeDimension.value = value;
   }
 }
 

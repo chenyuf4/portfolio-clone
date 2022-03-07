@@ -68,3 +68,7 @@ export const POS_LERP_FACTOR = {
   SCROLL: 0.08,
   LATENCY: 0.08,
 };
+export const IMAGE_DIMENSION = {
+  width: 1219,
+  height: 696,
+};
