@@ -1,0 +1,30 @@
+.about-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  outline: none;
+  z-index: 5;
+}
+
+.footer-container {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 6;
+}
+
+.large-title-sm-window {
+  font-size: 25vw;
+}
+
+.large-title-lg-window {
+  font-size: 15vw;
+}
+
+.close-btn-container {
+  right: 0;
+  top: 0;
+}

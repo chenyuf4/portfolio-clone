@@ -1,6 +1,9 @@
 import clsx from "clsx";
 import styles from "./Home.module.scss";
-const Home = () => {
+import { useHistory } from "react-router-dom";
+import { PAGE_STATE } from "utils/format";
+const Home = ({ pageState, setPageState }) => {
+  const history = useHistory();
   return (
     <div>
       <div
@@ -27,10 +30,16 @@ const Home = () => {
             ))}
           </div>
           <div className="JW-font font-md">
-            <div>
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                history.push("/about");
+                setPageState(PAGE_STATE.about);
+              }}
+            >
               <div className="position-relative line-height-md">ABOUT</div>
-              <div className={styles["line"]}>
-                <div className={styles["line-color"]}></div>
+              <div className="line">
+                <div className="line-color"></div>
               </div>
             </div>
           </div>

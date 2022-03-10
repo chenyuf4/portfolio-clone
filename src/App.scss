@@ -15,6 +15,7 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
   overscroll-behavior-x: none;
+  background-color: #151515;
 }
 
 #root {
@@ -109,4 +110,27 @@ canvas {
 
 .text-primary-color {
   color: #bac4b8;
+}
+
+// background color
+.background-dark {
+  background-color: #151515;
+}
+
+// cursor
+.cursor-pointer {
+  cursor: pointer;
+}
+
+// line style
+.line {
+  width: 100%;
+  bottom: 8px;
+  height: 2px;
+}
+
+.line-color {
+  height: 100%;
+  width: 100%;
+  background-color: #bac4b8;
 }

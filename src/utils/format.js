@@ -72,3 +72,8 @@ export const IMAGE_DIMENSION = {
   width: 1219,
   height: 696,
 };
+
+export const PAGE_STATE = {
+  home: "home",
+  about: "about",
+};

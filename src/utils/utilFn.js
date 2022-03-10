@@ -1,5 +1,5 @@
 export const rotationAngleFn = (percentage, direction = "L") => {
-  const angleOffset = Math.PI / 8;
+  const angleOffset = Math.PI / 7;
   if (percentage === 0) {
     return direction === "L" ? angleOffset : -angleOffset;
   }

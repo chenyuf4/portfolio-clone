@@ -2,12 +2,7 @@ import { PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import Scene from "../Scene/Scene";
-const CanvasBlock = ({
-  scrollPosRef,
-  isScrolling,
-  setIsScrolling,
-  zPosRef,
-}) => {
+const CanvasBlock = ({ scrollPosRef, isScrolling, setIsScrolling }) => {
   return (
     <Canvas
       colorManagement
@@ -31,7 +26,6 @@ const CanvasBlock = ({
         <color attach="background" args={["#151515"]} />
         <Scene
           scrollPosRef={scrollPosRef}
-          zPosRef={zPosRef}
           isScrolling={isScrolling}
           setIsScrolling={setIsScrolling}
         />

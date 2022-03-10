@@ -13,7 +13,7 @@ const ImagePlane = ({ imageUrl, index }) => {
       position={[defaultPos, 0, 0]}
       scale={[IMAGE_BLOCK_WIDTH, IMAGE_BLOCK_HEIGHT, 1]}
     >
-      <planeGeometry args={[1, 1, 64, 64]} />
+      <planeBufferGeometry args={[1, 1, 64, 64]} />
       <imagePlaneShaderMaterial
         boundary={5.5 * IMAGE_BLOCK_WIDTH + 4.5 * IMAGE_GAP}
         tex={imgTex}

@@ -5,7 +5,7 @@ import useRefMounted from "hooks/useRefMounted";
 import { POS_LERP_FACTOR } from "utils/format";
 import * as THREE from "three";
 import { rotationAngleFn } from "utils/utilFn";
-const { damp, lerp, clamp } = THREE.MathUtils;
+const { clamp } = THREE.MathUtils;
 const Scene = ({ scrollPosRef, isScrolling, setIsScrolling, zPosRef }) => {
   const imageGroupRef = useRef();
   const mounted = useRefMounted();
@@ -63,14 +63,12 @@ const Scene = ({ scrollPosRef, isScrolling, setIsScrolling, zPosRef }) => {
   useEffect(() => {
     if (!mounted.current) return;
     if (!isScrolling) {
-      console.log("remove");
       if (animationRef.current) {
         window.cancelAnimationFrame(animationRef.current);
         animationRef.current = null;
       }
     } else {
       if (!animationRef.current) {
-        console.log("add");
         animationRef.current = window.requestAnimationFrame(updatePlanes);
       }
     }
