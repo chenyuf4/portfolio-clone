@@ -7,6 +7,15 @@ const About = ({ pageState, setPageState }) => {
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-width: 1224px)",
   });
+
+  const isMediumDevice = useMediaQuery({
+    query: "(min-width: 768px)",
+  });
+
+  const isHeightEnough = useMediaQuery({
+    query: "(min-height: 550px)",
+  });
+
   const history = useHistory();
   return (
     <div
@@ -40,9 +49,9 @@ const About = ({ pageState, setPageState }) => {
         <div>
           <div
             className={clsx(
-              !isDesktopOrLaptop
-                ? styles["large-title-sm-window"]
-                : styles["large-title-lg-window"],
+              styles["large-title-sm-device"],
+              isDesktopOrLaptop && styles["large-title-lg-device"],
+              isMediumDevice && styles["large-title-md-device"],
               "T-font mb-5"
             )}
             style={{ lineHeight: "0.75" }}
@@ -50,26 +59,30 @@ const About = ({ pageState, setPageState }) => {
             <div>STEP0E7</div>
             <div>101598M</div>
           </div>
-          <div
-            className="JW-font text-uppercase line-height-sm"
-            style={{ fontSize: "11px" }}
-          >
-            <div className="text-nowrap">
-              STEPHEN FAN is a front end beginner at Bytedance. As
+          {isHeightEnough && (
+            <div
+              className="JW-font text-uppercase line-height-sm"
+              style={{ fontSize: "11px" }}
+            >
+              <div className="text-nowrap">
+                STEPHEN FAN is a front end beginner at Bytedance. As
+              </div>
+              <div>a developer, he has many experiences in using different</div>
+              <div> front end tools, such as React, Bootstrap, THREE.js</div>
+              <div> and WEBGL.</div>
             </div>
-            <div>a developer, he has many experiences in using different</div>
-            <div> front end tools, such as React, Bootstrap, THREE.js</div>
-            <div> and WEBGL.</div>
-          </div>
+          )}
         </div>
         <div className={clsx("JW-font", styles["footer-container"])}>
-          <div className="line-height-lg mb-5 font-md">
-            <div>EMAIL ↗</div>
-            <div>INSTAGRAM ↗</div>
-            <div>LINKEDIN ↗</div>
-            <div>GITHUB ↗</div>
-            <div>WECHAT ↗</div>
-          </div>
+          {isHeightEnough && (
+            <div className="line-height-lg mb-5 font-md">
+              <div>EMAIL ↗</div>
+              <div>INSTAGRAM ↗</div>
+              <div>LINKEDIN ↗</div>
+              <div>GITHUB ↗</div>
+              <div>WECHAT ↗</div>
+            </div>
+          )}
           <div
             className={clsx(
               "d-flex justify-content-between font-sm align-items-end w-100"

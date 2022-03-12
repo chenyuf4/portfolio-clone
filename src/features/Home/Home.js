@@ -8,11 +8,11 @@ const Home = ({ pageState, setPageState }) => {
     <div>
       <div
         className={clsx(
-          styles["header-container"],
+          styles["header-container-left"],
           "pt-4 ps-5 pe-5 text-primary-color"
         )}
       >
-        <div className="w-100 d-flex justify-content-between T-font align-items-center">
+        <div className="w-100 d-flex justify-content-between T-font">
           <div className="d-flex">
             {"STEPHEN".split("").map((letter, index) => (
               <div className="position-relative overflow-hidden" key={index}>
@@ -29,18 +29,25 @@ const Home = ({ pageState, setPageState }) => {
               </div>
             ))}
           </div>
-          <div className="JW-font font-md">
-            <div
-              className="cursor-pointer"
-              onClick={() => {
-                history.push("/about");
-                setPageState(PAGE_STATE.about);
-              }}
-            >
-              <div className="position-relative line-height-md">ABOUT</div>
-              <div className="line">
-                <div className="line-color"></div>
-              </div>
+        </div>
+      </div>
+      <div
+        className={clsx(
+          styles["header-container-right"],
+          "pt-5 pe-5 text-primary-color"
+        )}
+      >
+        <div className="JW-font font-md">
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              history.push("/about");
+              setPageState(PAGE_STATE.about);
+            }}
+          >
+            <div className="position-relative line-height-md">ABOUT</div>
+            <div className="line">
+              <div className="line-color"></div>
             </div>
           </div>
         </div>

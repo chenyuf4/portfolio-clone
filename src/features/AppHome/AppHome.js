@@ -78,7 +78,7 @@ const AppHome = () => {
 
   useEffect(() => {
     if (!isDesktopOrLaptop) {
-      history.push("/about");
+      pageState !== PAGE_STATE.about && history.push("/about");
     } else if (pageState === PAGE_STATE.home) {
       history.push("/");
     }

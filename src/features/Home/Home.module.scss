@@ -6,9 +6,15 @@
   z-index: 2;
 }
 
-.header-container {
+.header-container-left {
   position: absolute;
   left: 0;
+  top: 0;
+  z-index: 2;
+}
+
+.header-container-right {
+  position: absolute;
   right: 0;
   top: 0;
   z-index: 2;
