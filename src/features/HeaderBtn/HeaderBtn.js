@@ -44,7 +44,7 @@ const HeaderBtn = ({ pageState, setPageState }) => {
                 btnTimeline
                   .to("#aboutBtn", {
                     transform: "translateY(-100%)",
-                    duration: 0.3,
+                    duration: 0.7,
                   })
                   .fromTo(
                     closeBtnRef.current,
@@ -53,7 +53,7 @@ const HeaderBtn = ({ pageState, setPageState }) => {
                     },
                     {
                       transform: "translateY(0%)",
-                      duration: 0.3,
+                      duration: 0.7,
                     }
                   ),
                 gsap.to("#homeSocialApp > div > div", {
@@ -75,7 +75,6 @@ const HeaderBtn = ({ pageState, setPageState }) => {
                     {
                       transform: "translateX(0%)",
                       duration: 1.2,
-                      stagger: 0.025,
                       ease: Power3.easeOut,
                     }
                   )
@@ -140,13 +139,13 @@ const HeaderBtn = ({ pageState, setPageState }) => {
                     transform: "translateX(0%)",
                     duration: 0.32,
                     stagger: 0.013,
-                    delay: 0.5,
+                    delay: 0.4,
                   }
                 ),
                 btnTimeline
                   .to(closeBtnRef.current, {
                     transform: "translateY(-100%)",
-                    duration: 0.2,
+                    duration: 0.4,
                   })
                   .fromTo(
                     "#aboutBtn",
@@ -155,7 +154,7 @@ const HeaderBtn = ({ pageState, setPageState }) => {
                     },
                     {
                       transform: "translateY(0%)",
-                      duration: 0.2,
+                      duration: 0.4,
                     }
                   ),
                 gsap.fromTo(
@@ -167,37 +166,36 @@ const HeaderBtn = ({ pageState, setPageState }) => {
                     transform: "translateY(0%)",
                     duration: 0.32,
                     stagger: 0.015,
-                    delay: 0.5,
+                    delay: 0.4,
                   }
                 ),
                 gsap.to(".about-text-animate", {
                   transform: "translateX(100%)",
-                  duration: 0.5,
-                  stagger: 0.01,
+                  duration: 0.4,
                   ease: Power4.easeOut,
                 }),
                 gsap.to("#introContainer > div > div", {
                   transform: "translateY(-100%)",
-                  duration: 0.5,
+                  duration: 0.4,
                   stagger: 0.01,
                   ease: Power4.easeOut,
                 }),
                 gsap.to("#aboutSocialApp > div > div", {
                   transform: "translateY(-100%)",
-                  duration: 0.5,
+                  duration: 0.4,
                   stagger: 0.01,
                   ease: Power4.easeOut,
                 }),
                 gsap.to("#rightsContainer > div > div", {
                   transform: "translateY(-100%)",
-                  duration: 0.5,
+                  duration: 0.4,
                   stagger: 0.01,
                   ease: Power4.easeOut,
                 }),
                 gsap.to("#aboutContainer", {
                   opacity: 0,
                   duration: 0.2,
-                  delay: 0.5,
+                  delay: 0.4,
                   ease: Power4.easeOut,
                 }),
               ]).then(() => {
