@@ -12,9 +12,13 @@ import { useMediaQuery } from "react-responsive";
 import About from "features/About/About";
 import { Route, useHistory } from "react-router-dom";
 import HeaderBtn from "features/HeaderBtn/HeaderBtn";
+import gsap from "gsap";
 const AppHome = () => {
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-width: 1224px)",
+  });
+  const isHeightEnough = useMediaQuery({
+    query: "(min-height: 550px)",
   });
   const history = useHistory();
   const numImages = imagesArr.length;
@@ -79,11 +83,51 @@ const AppHome = () => {
 
   useEffect(() => {
     if (!isDesktopOrLaptop) {
-      pageState !== PAGE_STATE.about && history.push("/about");
+      if (pageState !== PAGE_STATE.about) {
+        gsap.set("#aboutContainer", { opacity: 1 });
+        gsap.set(".about-text-animate", { transform: "translateX(0%)" });
+        isHeightEnough &&
+          gsap.set("#introContainer > div > div", {
+            transform: "translateY(0%)",
+          });
+        isHeightEnough &&
+          gsap.set("#aboutSocialApp > div > div", {
+            transform: "translateY(0%)",
+          });
+        gsap.set("#rightsContainer > div > div", {
+          transform: "translateY(0%)",
+        });
+        gsap.set("#aboutBtn", {
+          transform: "translateY(-100%)",
+        });
+        gsap.set("#closeBtn", {
+          transform: "translateY(100%)",
+        });
+      } else {
+        gsap.set("#aboutBtn", {
+          transform: "translateY(-100%)",
+        });
+        gsap.set("#closeBtn", {
+          transform: "translateY(100%)",
+        });
+      }
     } else if (pageState === PAGE_STATE.home) {
-      history.push("/");
+      gsap.set("#aboutContainer", { opacity: 0 });
+      gsap.set("#aboutBtn", {
+        transform: "translateY(0%)",
+      });
+      gsap.set("#closeBtn", {
+        transform: "translateY(100%)",
+      });
+    } else {
+      gsap.set("#aboutBtn", {
+        transform: "translateY(-100%)",
+      });
+      gsap.set("#closeBtn", {
+        transform: "translateY(0%)",
+      });
     }
-  }, [history, isDesktopOrLaptop, pageState]);
+  }, [history, isDesktopOrLaptop, isHeightEnough, pageState]);
 
   return (
     <>

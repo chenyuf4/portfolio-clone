@@ -20,11 +20,18 @@ const HeaderBtn = ({ pageState, setPageState }) => {
     >
       <div className="JW-font font-md">
         <div
-          className="position-relative overflow-hidden cursor-pointer"
+          className={clsx(
+            "position-relative overflow-hidden",
+            isDesktopOrLaptop && "cursor-pointer"
+          )}
           onClick={() => {
             // history.push("/about");
             // setPageState(PAGE_STATE.about);
-            if (pageState === PAGE_STATE.home && !animating) {
+            if (
+              isDesktopOrLaptop &&
+              pageState === PAGE_STATE.home &&
+              !animating
+            ) {
               setAnimating(true);
               const btnTimeline = gsap.timeline();
               const aboutTimeline = gsap.timeline();
@@ -116,6 +123,7 @@ const HeaderBtn = ({ pageState, setPageState }) => {
                 setPageState(PAGE_STATE.about);
               });
             } else if (
+              isDesktopOrLaptop &&
               closeBtnRef.current &&
               pageState === PAGE_STATE.about &&
               !animating
@@ -210,14 +218,12 @@ const HeaderBtn = ({ pageState, setPageState }) => {
             className={clsx("position-absolute JW-font font-md")}
             style={{ top: 0 }}
           >
-            {isDesktopOrLaptop && (
-              <div ref={closeBtnRef} id="closeBtn">
-                <div className="position-relative line-height-md">CLOSE</div>
-                <div className="line">
-                  <div className="line-color"></div>
-                </div>
+            <div ref={closeBtnRef} id="closeBtn">
+              <div className="position-relative line-height-md">CLOSE</div>
+              <div className="line">
+                <div className="line-color"></div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>
