@@ -31,7 +31,7 @@ const AppHome = () => {
 
   const [isScrolling, setIsScrolling] = useState(false);
   const [pageState, setPageState] = useState(PAGE_STATE.home);
-
+  const [animating, setAnimating] = useState(false);
   const onWheelHandler = useCallback(
     (e) => {
       setIsScrolling(true);
@@ -82,6 +82,7 @@ const AppHome = () => {
   }, [onWheelHandler, pageState]);
 
   useEffect(() => {
+    if (animating) return;
     if (!isDesktopOrLaptop) {
       if (pageState !== PAGE_STATE.about) {
         gsap.set("#aboutContainer", { opacity: 1 });
@@ -127,7 +128,7 @@ const AppHome = () => {
         transform: "translateY(0%)",
       });
     }
-  }, [history, isDesktopOrLaptop, isHeightEnough, pageState]);
+  }, [animating, history, isDesktopOrLaptop, isHeightEnough, pageState]);
 
   return (
     <>
@@ -139,7 +140,12 @@ const AppHome = () => {
       <Home pageState={pageState} setPageState={setPageState} />
       {/* <Route exact={true} path="/about"> */}
       <About pageState={pageState} setPageState={setPageState} />
-      <HeaderBtn pageState={pageState} setPageState={setPageState} />
+      <HeaderBtn
+        pageState={pageState}
+        setPageState={setPageState}
+        animating={animating}
+        setAnimating={setAnimating}
+      />
       {/* </Route> */}
     </>
   );
