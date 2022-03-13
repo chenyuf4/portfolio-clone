@@ -11,6 +11,7 @@ import {
 import { useMediaQuery } from "react-responsive";
 import About from "features/About/About";
 import { Route, useHistory } from "react-router-dom";
+import HeaderBtn from "features/HeaderBtn/HeaderBtn";
 const AppHome = () => {
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-width: 1224px)",
@@ -92,9 +93,10 @@ const AppHome = () => {
         setIsScrolling={setIsScrolling}
       />
       <Home pageState={pageState} setPageState={setPageState} />
-      <Route exact={true} path="/about">
-        <About pageState={pageState} setPageState={setPageState} />
-      </Route>
+      {/* <Route exact={true} path="/about"> */}
+      <About pageState={pageState} setPageState={setPageState} />
+      <HeaderBtn pageState={pageState} setPageState={setPageState} />
+      {/* </Route> */}
     </>
   );
 };

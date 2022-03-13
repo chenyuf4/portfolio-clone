@@ -19,33 +19,13 @@ const About = ({ pageState, setPageState }) => {
   const history = useHistory();
   return (
     <div
+      id="aboutContainer"
       className={clsx(
         "background-dark p-5 text-primary-color",
         styles["about-container"]
       )}
     >
       <div className="h-100 position-relative">
-        {isDesktopOrLaptop && (
-          <div
-            className={clsx(
-              "position-absolute JW-font font-md",
-              styles["close-btn-container"]
-            )}
-          >
-            <div
-              className="cursor-pointer"
-              onClick={() => {
-                history.push("/");
-                setPageState(PAGE_STATE.home);
-              }}
-            >
-              <div className="position-relative line-height-md">CLOSE</div>
-              <div className="line">
-                <div className="line-color"></div>
-              </div>
-            </div>
-          </div>
-        )}
         <div>
           <div
             className={clsx(
@@ -56,31 +36,74 @@ const About = ({ pageState, setPageState }) => {
             )}
             style={{ lineHeight: "0.75" }}
           >
-            <div>STEP0E7</div>
-            <div>101598M</div>
+            <div className="d-flex">
+              {"STEP0E7".split("").map((letter, index) => (
+                <div className="position-relative overflow-hidden" key={index}>
+                  <div className="about-text-animate">
+                    <div className={clsx("mb-0 postion-relative")}>
+                      {letter}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="d-flex">
+              {"101598M".split("").map((letter, index) => (
+                <div className="position-relative overflow-hidden" key={index}>
+                  <div className="about-text-animate">
+                    <div className={clsx("mb-0 postion-relative")}>
+                      {letter}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
           {isHeightEnough && (
             <div
-              className="JW-font text-uppercase line-height-sm"
+              className="JW-font text-uppercase"
               style={{ fontSize: "11px" }}
+              id="introContainer"
             >
-              <div className="text-nowrap">
-                STEPHEN FAN is a front end beginner at Bytedance. As
+              <div className="overflow-hidden position-relative">
+                <div className="line-height-md">
+                  STEPHEN FAN is a front end beginner at Bytedance. As
+                </div>
               </div>
-              <div>a developer, he has many experiences in using different</div>
-              <div> front end tools, such as React, Bootstrap, THREE.js</div>
-              <div> and WEBGL.</div>
+              <div className="overflow-hidden position-relative">
+                <div className="line-height-md ">
+                  a developer, he has many experiences in using different
+                </div>
+              </div>
+              <div className="overflow-hidden">
+                <div className="line-height-md ">
+                  front end tools, such as React, Bootstrap, THREE.js
+                </div>
+              </div>
+              <div className="overflow-hidden">
+                <div className="line-height-sm ">and WEBGL.</div>
+              </div>
             </div>
           )}
         </div>
         <div className={clsx("JW-font", styles["footer-container"])}>
           {isHeightEnough && (
-            <div className="line-height-lg mb-5 font-md">
-              <div>EMAIL ↗</div>
-              <div>INSTAGRAM ↗</div>
-              <div>LINKEDIN ↗</div>
-              <div>GITHUB ↗</div>
-              <div>WECHAT ↗</div>
+            <div className="line-height-lg mb-5 font-md" id="aboutSocialApp">
+              <div className="overflow-hidden position-relative">
+                <div>EMAIL ↗</div>
+              </div>
+              <div className="overflow-hidden position-relative">
+                <div>INSTAGRAM ↗</div>
+              </div>
+              <div className="overflow-hidden position-relative">
+                <div>LINKEDIN ↗</div>
+              </div>
+              <div className="overflow-hidden position-relative">
+                <div>GITHUB ↗</div>
+              </div>
+              <div className="overflow-hidden position-relative">
+                <div>WECHAT ↗</div>
+              </div>
             </div>
           )}
           <div
@@ -93,9 +116,16 @@ const About = ({ pageState, setPageState }) => {
               <div>WORK IN BYTEDANCE</div>
             </div>
 
-            <div className="intro-container line-height-md">
-              <div className="text-end">ALL RIGHTS RESERVED</div>
-              <div className="text-end">STEPHEN FAN 2022</div>
+            <div
+              className="intro-container line-height-md"
+              id="rightsContainer"
+            >
+              <div className="text-end overflow-hidden position-relative">
+                <div>ALL RIGHTS RESERVED</div>
+              </div>
+              <div className="text-end overflow-hidden position-relative">
+                <div>STEPHEN FAN 2022</div>
+              </div>
             </div>
           </div>
         </div>
