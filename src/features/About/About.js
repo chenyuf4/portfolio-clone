@@ -2,18 +2,22 @@ import clsx from "clsx";
 import styles from "./About.module.scss";
 import { useMediaQuery } from "react-responsive";
 import { useHistory } from "react-router-dom";
-import { PAGE_STATE } from "utils/format";
-const About = ({ pageState, setPageState }) => {
+import {
+  HEIGHT_THRESHOLD,
+  DESKTOP_THRESHOLD,
+  MEDIUM_DEVICE_THRESHOLD,
+} from "utils/format";
+const About = () => {
   const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-width: 1224px)",
+    query: `(min-width: ${DESKTOP_THRESHOLD}px)`,
   });
 
   const isMediumDevice = useMediaQuery({
-    query: "(min-width: 768px)",
+    query: `(min-width: ${MEDIUM_DEVICE_THRESHOLD}px)`,
   });
 
   const isHeightEnough = useMediaQuery({
-    query: "(min-height: 550px)",
+    query: `(min-height: ${HEIGHT_THRESHOLD}px)`,
   });
 
   const history = useHistory();

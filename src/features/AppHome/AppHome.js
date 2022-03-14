@@ -3,6 +3,8 @@ import Home from "features/Home/Home";
 import { useEffect, useRef, useCallback, useState } from "react";
 import normalizeWheel from "normalize-wheel";
 import {
+  DESKTOP_THRESHOLD,
+  HEIGHT_THRESHOLD,
   imagesArr,
   IMAGE_BLOCK_WIDTH,
   IMAGE_GAP,
@@ -15,10 +17,10 @@ import HeaderBtn from "features/HeaderBtn/HeaderBtn";
 import gsap from "gsap";
 const AppHome = () => {
   const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-width: 1224px)",
+    query: `(min-width: ${DESKTOP_THRESHOLD}px)`,
   });
   const isHeightEnough = useMediaQuery({
-    query: "(min-height: 550px)",
+    query: `(min-height: ${HEIGHT_THRESHOLD}px)`,
   });
   const history = useHistory();
   const numImages = imagesArr.length;
@@ -85,6 +87,7 @@ const AppHome = () => {
     if (animating) return;
     if (!isDesktopOrLaptop) {
       if (pageState !== PAGE_STATE.about) {
+        //when page is small, we need to hide home page and show about page
         gsap.set("#aboutContainer", { opacity: 1 });
         gsap.set(".about-text-animate", { transform: "translateX(0%)" });
         isHeightEnough &&
@@ -98,6 +101,7 @@ const AppHome = () => {
         gsap.set("#rightsContainer > div > div", {
           transform: "translateY(0%)",
         });
+        // hide about and close btn
         gsap.set("#aboutBtn", {
           transform: "translateY(-100%)",
         });
@@ -105,6 +109,7 @@ const AppHome = () => {
           transform: "translateY(100%)",
         });
       } else {
+        // if we already at about page, we only hide about and close button
         gsap.set("#aboutBtn", {
           transform: "translateY(-100%)",
         });
@@ -113,6 +118,7 @@ const AppHome = () => {
         });
       }
     } else if (pageState === PAGE_STATE.home) {
+      // if page is large enough, we need to hide about page
       gsap.set("#aboutContainer", { opacity: 0 });
       gsap.set("#aboutBtn", {
         transform: "translateY(0%)",
@@ -139,7 +145,7 @@ const AppHome = () => {
       />
       <Home pageState={pageState} setPageState={setPageState} />
       {/* <Route exact={true} path="/about"> */}
-      <About pageState={pageState} setPageState={setPageState} />
+      <About />
       <HeaderBtn
         pageState={pageState}
         setPageState={setPageState}

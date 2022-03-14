@@ -77,3 +77,7 @@ export const PAGE_STATE = {
   home: "home",
   about: "about",
 };
+
+export const HEIGHT_THRESHOLD = 650;
+export const MEDIUM_DEVICE_THRESHOLD = 768;
+export const DESKTOP_THRESHOLD = 1224;

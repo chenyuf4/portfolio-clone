@@ -1,13 +1,13 @@
 import clsx from "clsx";
 import gsap from "gsap";
 import styles from "./HeaderBtn.module.scss";
-import { PAGE_STATE } from "utils/format";
+import { DESKTOP_THRESHOLD, PAGE_STATE } from "utils/format";
 import { useMediaQuery } from "react-responsive";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { Power4, Power0, Power1, Power3, Power2 } from "gsap/all";
 const HeaderBtn = ({ pageState, setPageState, animating, setAnimating }) => {
   const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-width: 1224px)",
+    query: `(min-width: ${DESKTOP_THRESHOLD}px)`,
   });
 
   const closeBtnRef = useRef();
