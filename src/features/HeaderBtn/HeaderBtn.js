@@ -5,7 +5,7 @@ import { DESKTOP_THRESHOLD, PAGE_STATE } from "utils/format";
 import { useMediaQuery } from "react-responsive";
 import { useRef } from "react";
 import { Power4, Power0, Power1, Power3, Power2 } from "gsap/all";
-const HeaderBtn = ({ pageState, setPageState, animating, setAnimating }) => {
+const HeaderBtn = ({ pageStateRef, animating, setAnimating }) => {
   const isDesktopOrLaptop = useMediaQuery({
     query: `(min-width: ${DESKTOP_THRESHOLD}px)`,
   });
@@ -27,15 +27,11 @@ const HeaderBtn = ({ pageState, setPageState, animating, setAnimating }) => {
           onClick={() => {
             // history.push("/about");
             // setPageState(PAGE_STATE.about);
-            if (
-              isDesktopOrLaptop &&
-              pageState === PAGE_STATE.home &&
-              !animating
-            ) {
-              setAnimating(true);
+            if (isDesktopOrLaptop && pageStateRef.current === PAGE_STATE.home) {
               const btnTimeline = gsap.timeline();
               const aboutTimeline = gsap.timeline();
-              setPageState(PAGE_STATE.about);
+              pageStateRef.current = PAGE_STATE.about;
+              gsap.killTweensOf("*");
               Promise.all([
                 gsap.to(".letter-animate", {
                   transform: "translateX(100%)",
@@ -119,18 +115,15 @@ const HeaderBtn = ({ pageState, setPageState, animating, setAnimating }) => {
                     },
                     "-=1.7"
                   ),
-              ]).then(() => {
-                setAnimating(false);
-              });
+              ]).then(() => {});
             } else if (
               isDesktopOrLaptop &&
               closeBtnRef.current &&
-              pageState === PAGE_STATE.about &&
-              !animating
+              pageStateRef.current === PAGE_STATE.about
             ) {
-              setAnimating(true);
               const btnTimeline = gsap.timeline();
-              setPageState(PAGE_STATE.home);
+              pageStateRef.current = PAGE_STATE.home;
+              gsap.killTweensOf("*");
               Promise.all([
                 gsap.fromTo(
                   ".letter-animate",
@@ -201,7 +194,7 @@ const HeaderBtn = ({ pageState, setPageState, animating, setAnimating }) => {
                   ease: Power4.easeOut,
                 }),
               ]).then(() => {
-                setAnimating(false);
+                // setAnimating(false);
               });
             }
           }}

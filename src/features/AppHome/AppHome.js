@@ -32,10 +32,11 @@ const AppHome = () => {
   });
 
   const [isScrolling, setIsScrolling] = useState(false);
-  const [pageState, setPageState] = useState(PAGE_STATE.home);
+  const pageStateRef = useRef(PAGE_STATE.home);
   const [animating, setAnimating] = useState(false);
   const onWheelHandler = useCallback(
     (e) => {
+      if (pageStateRef.current !== PAGE_STATE.home) return;
       setIsScrolling(true);
       const { pixelX, pixelY } = normalizeWheel(e);
       const relativeSpeed = Math.min(
@@ -74,19 +75,15 @@ const AppHome = () => {
   );
 
   useEffect(() => {
-    pageState === PAGE_STATE.home &&
-      window.addEventListener("wheel", onWheelHandler);
-    PAGE_STATE === PAGE_STATE.about &&
-      window.removeEventListener("wheel", onWheelHandler);
+    window.addEventListener("wheel", onWheelHandler);
     return () => {
       window.removeEventListener("wheel", onWheelHandler);
     };
-  }, [onWheelHandler, pageState]);
+  }, [onWheelHandler]);
 
   useEffect(() => {
-    if (animating) return;
     if (!isDesktopOrLaptop) {
-      if (pageState !== PAGE_STATE.about) {
+      if (pageStateRef.current !== PAGE_STATE.about) {
         //when page is small, we need to hide home page and show about page
         gsap.set("#aboutContainer", { opacity: 1 });
         gsap.set(".about-text-animate", { transform: "translateX(0%)" });
@@ -117,7 +114,7 @@ const AppHome = () => {
           transform: "translateY(100%)",
         });
       }
-    } else if (pageState === PAGE_STATE.home) {
+    } else if (pageStateRef.current === PAGE_STATE.home) {
       // if page is large enough, we need to hide about page
       gsap.set("#aboutContainer", { opacity: 0 });
       gsap.set("#aboutBtn", {
@@ -134,7 +131,7 @@ const AppHome = () => {
         transform: "translateY(0%)",
       });
     }
-  }, [animating, history, isDesktopOrLaptop, isHeightEnough, pageState]);
+  }, [isDesktopOrLaptop, isHeightEnough]);
 
   return (
     <>
@@ -143,12 +140,11 @@ const AppHome = () => {
         isScrolling={isScrolling}
         setIsScrolling={setIsScrolling}
       />
-      <Home pageState={pageState} setPageState={setPageState} />
+      <Home pageStateRef={pageStateRef} />
       {/* <Route exact={true} path="/about"> */}
       <About />
       <HeaderBtn
-        pageState={pageState}
-        setPageState={setPageState}
+        pageStateRef={pageStateRef}
         animating={animating}
         setAnimating={setAnimating}
       />

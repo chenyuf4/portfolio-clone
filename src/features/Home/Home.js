@@ -3,7 +3,7 @@ import styles from "./Home.module.scss";
 import { useHistory } from "react-router-dom";
 import { PAGE_STATE } from "utils/format";
 import gsap from "gsap";
-const Home = ({ pageState, setPageState }) => {
+const Home = () => {
   const history = useHistory();
   return (
     <div>
@@ -29,47 +29,6 @@ const Home = ({ pageState, setPageState }) => {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </div>
-      <div
-        className={clsx(
-          styles["header-container-right"],
-          "pt-5 pe-5 text-primary-color"
-        )}
-      >
-        <div className="JW-font font-md">
-          <div className="position-relative overflow-hidden">
-            <div
-              id="aboutBtn"
-              className={clsx(
-                pageState === PAGE_STATE.home && "cursor-pointer"
-              )}
-              onClick={() => {
-                // history.push("/about");
-                // setPageState(PAGE_STATE.about);
-                gsap.to(".letter-animate", {
-                  transform: "translateX(100%)",
-                  duration: 0.32,
-                  stagger: 0.013,
-                });
-                gsap.to("#aboutBtn", {
-                  transform: "translateY(-100%)",
-                  duration: 0.2,
-                });
-                gsap.to("#homeSocialApp > div > div", {
-                  transform: "translateY(-100%)",
-                  duration: 0.32,
-                  stagger: 0.015,
-                });
-                setPageState(PAGE_STATE.about);
-              }}
-            >
-              <div className="position-relative line-height-md">ABOUT</div>
-              <div className="line">
-                <div className="line-color"></div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
