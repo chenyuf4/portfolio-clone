@@ -36,7 +36,12 @@ const AppHome = () => {
   const [animating, setAnimating] = useState(false);
   const onWheelHandler = useCallback(
     (e) => {
-      if (pageStateRef.current !== PAGE_STATE.home) return;
+      if (
+        pageStateRef.current !== PAGE_STATE.home ||
+        !isDesktopOrLaptop ||
+        !isHeightEnough
+      )
+        return;
       setIsScrolling(true);
       const { pixelX, pixelY } = normalizeWheel(e);
       const relativeSpeed = Math.min(
@@ -71,7 +76,7 @@ const AppHome = () => {
       target = Math.max(-scrollLimit, Math.min(0, target));
       scrollPosRef.current.target = target;
     },
-    [scrollLimit]
+    [isDesktopOrLaptop, isHeightEnough, scrollLimit]
   );
 
   useEffect(() => {
