@@ -119,7 +119,7 @@ const HeaderBtn = ({ pageStateRef, animating, setAnimating }) => {
                       stagger: 0.02,
                       ease: Power3.easeOut,
                     },
-                    "-=1.7"
+                    "-=1"
                   ),
               ]).then(() => {});
             } else if (
