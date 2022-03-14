@@ -27,10 +27,15 @@ const HeaderBtn = ({ pageStateRef, animating, setAnimating }) => {
           onClick={() => {
             // history.push("/about");
             // setPageState(PAGE_STATE.about);
-            if (isDesktopOrLaptop && pageStateRef.current === PAGE_STATE.home) {
+            if (
+              isDesktopOrLaptop &&
+              pageStateRef.current === PAGE_STATE.home &&
+              !animating
+            ) {
               const btnTimeline = gsap.timeline();
               const aboutTimeline = gsap.timeline();
               pageStateRef.current = PAGE_STATE.about;
+              setAnimating(true);
               gsap.killTweensOf("*");
               Promise.all([
                 gsap.to(".letter-animate", {
@@ -41,7 +46,7 @@ const HeaderBtn = ({ pageStateRef, animating, setAnimating }) => {
                 btnTimeline
                   .to("#aboutBtn", {
                     transform: "translateY(-100%)",
-                    duration: 0.6,
+                    duration: 0.45,
                   })
                   .fromTo(
                     closeBtnRef.current,
@@ -50,7 +55,8 @@ const HeaderBtn = ({ pageStateRef, animating, setAnimating }) => {
                     },
                     {
                       transform: "translateY(0%)",
-                      duration: 0.6,
+                      duration: 0.45,
+                      onComplete: () => setAnimating(false),
                     }
                   ),
                 gsap.to("#homeSocialApp > div > div", {
@@ -119,11 +125,13 @@ const HeaderBtn = ({ pageStateRef, animating, setAnimating }) => {
             } else if (
               isDesktopOrLaptop &&
               closeBtnRef.current &&
-              pageStateRef.current === PAGE_STATE.about
+              pageStateRef.current === PAGE_STATE.about &&
+              !animating
             ) {
               const btnTimeline = gsap.timeline();
               pageStateRef.current = PAGE_STATE.home;
               gsap.killTweensOf("*");
+              setAnimating(true);
               Promise.all([
                 gsap.fromTo(
                   ".letter-animate",
@@ -140,7 +148,7 @@ const HeaderBtn = ({ pageStateRef, animating, setAnimating }) => {
                 btnTimeline
                   .to(closeBtnRef.current, {
                     transform: "translateY(-100%)",
-                    duration: 0.55,
+                    duration: 0.45,
                   })
                   .fromTo(
                     "#aboutBtn",
@@ -149,7 +157,8 @@ const HeaderBtn = ({ pageStateRef, animating, setAnimating }) => {
                     },
                     {
                       transform: "translateY(0%)",
-                      duration: 0.55,
+                      duration: 0.45,
+                      onComplete: () => setAnimating(false),
                     }
                   ),
                 gsap.fromTo(

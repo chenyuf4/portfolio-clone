@@ -71,5 +71,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 TO DO LIST:
 
-1. Fix animation, so that it can be interrupted before animation finishes
-2. Remove onwheel when height not enough or desktop size is small
+1. Fix animation, so that it can be interrupted before animation finishes Done
+2. Remove onwheel when height not enough or desktop size is small Done
+3. Make animation more smoother, if about/close button animation is done. Then we can start animating them again.

@@ -87,6 +87,7 @@ const AppHome = () => {
   }, [onWheelHandler]);
 
   useEffect(() => {
+    if (animating) return;
     if (!isDesktopOrLaptop) {
       if (pageStateRef.current !== PAGE_STATE.about) {
         //when page is small, we need to hide home page and show about page
@@ -136,7 +137,7 @@ const AppHome = () => {
         transform: "translateY(0%)",
       });
     }
-  }, [isDesktopOrLaptop, isHeightEnough]);
+  }, [animating, isDesktopOrLaptop, isHeightEnough]);
 
   return (
     <>
