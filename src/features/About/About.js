@@ -70,22 +70,24 @@ const About = () => {
               id="introContainer"
             >
               <div className="overflow-hidden position-relative">
-                <div className="line-height-md">
-                  STEPHEN FAN is a front end beginner at Bytedance. As
+                <div className="line-height-md text-nowrap">
+                  STEPHEN FAN is a front end beginner at Bytedance.
                 </div>
               </div>
               <div className="overflow-hidden position-relative">
-                <div className="line-height-md ">
-                  a developer, he has many experiences in using different
+                <div className="line-height-md text-nowrap">
+                  As a developer, he has many experiences in using
                 </div>
               </div>
               <div className="overflow-hidden">
-                <div className="line-height-md ">
-                  front end tools, such as React, Bootstrap, THREE.js
+                <div className="line-height-md text-nowrap">
+                  different front end tools, such as React, VUE,
                 </div>
               </div>
               <div className="overflow-hidden">
-                <div className="line-height-sm ">and WEBGL.</div>
+                <div className="line-height-md text-nowrap">
+                  Bootstrap, THREE.js and WEBGL.
+                </div>
               </div>
             </div>
           )}
